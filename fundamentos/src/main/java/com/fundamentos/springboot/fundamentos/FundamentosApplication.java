@@ -1,5 +1,7 @@
 package com.fundamentos.springboot.fundamentos;
 
+import com.fundamentos.springboot.fundamentos.bean.MyBean;
+import com.fundamentos.springboot.fundamentos.bean.MyBeanWithDependency;
 import com.fundamentos.springboot.fundamentos.component.ComponentDependency;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +17,10 @@ public class FundamentosApplication implements CommandLineRunner {
 
     private ComponentDependency componentDependency;
 
+    private MyBean myBean;
+
+    private MyBeanWithDependency myBeanWithDependency;
+
     // =====================================
     // Constructor
     // =====================================
@@ -23,10 +29,16 @@ public class FundamentosApplication implements CommandLineRunner {
      * ComponentDependency - Parametro para la inyeccion de componentes
      * Qualifer - Nombre del componente a utilizar
      */
-    public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency) {
+    public FundamentosApplication(
+            @Qualifier("componentTwoImplement") ComponentDependency componentDependency,
+            MyBean myBean,
+            MyBeanWithDependency myBeanWithDependency
+    ) {
 
         // Inyeccion de componentes
         this.componentDependency = componentDependency;
+        this.myBean = myBean;
+        this.myBeanWithDependency = myBeanWithDependency;
     }
 
     // =====================================
@@ -37,6 +49,12 @@ public class FundamentosApplication implements CommandLineRunner {
     public void run(String... args) {
         // Call of the 'saludar' method
         componentDependency.saludar();
+
+        // Call 'print' of Bean
+        myBean.print();
+
+        // Call 'print with dependency' on bean with dependency
+        myBeanWithDependency.printWithDependency();
     }
 
     // =====================================
