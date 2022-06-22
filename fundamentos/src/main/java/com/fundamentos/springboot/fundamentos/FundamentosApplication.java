@@ -5,6 +5,8 @@ import com.fundamentos.springboot.fundamentos.bean.MyBeanWithDependency;
 import com.fundamentos.springboot.fundamentos.bean.MyBeanWithProperties;
 import com.fundamentos.springboot.fundamentos.component.ComponentDependency;
 import com.fundamentos.springboot.fundamentos.pojo.UserPojo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +18,8 @@ public class FundamentosApplication implements CommandLineRunner {
     // =====================================
     // Attributes
     // =====================================
+
+    private Log LOGGER = LogFactory.getLog(FundamentosApplication.class);
 
     private ComponentDependency componentDependency;
 
@@ -69,7 +73,17 @@ public class FundamentosApplication implements CommandLineRunner {
         // Call my bean with properties
         System.out.println(myBeanWithProperties.fuction());
 
-        System.out.println(userPojo.getEmail() + " - " + userPojo.getPassword());
+        System.out.println(userPojo.getEmail() + " - " + userPojo.getPassword() + " _ Age: " + userPojo.getAge() );
+
+        // Example of Error Log
+        try {
+            int value = 10 / 0;
+            LOGGER.debug("Response of operation in Try - Catch is: " + value);
+        } catch ( Exception e ) {
+            LOGGER.error("Esto es un error en Try - Catch: " + e.getMessage());
+        }
+
+
     }
 
     // =====================================
