@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -77,12 +78,28 @@ public class FundamentosApplication implements CommandLineRunner {
 
         // Save users data in data base
         this._saveUsersInDataBase();
+
+        // Execute Query from user
+        this._getInformationJpqlFromUser();
     }
 
 
     // =====================================
     // Private methods
     // =====================================
+
+    private void _getInformationJpqlFromUser() {
+        // Execute first QUERY
+        LOGGER.info(
+                "El usuario con método findByUserEmail " + userRepository.findByUserEmail("jsvargasq@unbosque.edu.co")
+                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+
+        // Execute second QUERY
+        userRepository.findAndSort("Us", Sort.by("id").ascending())
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con método findAndSort " + user));
+
+    }
 
     private void _saveUsersInDataBase() {
         User user1 = new User("Sebastian", "jsvargasq@hotmail.com", LocalDate.of(2001, 3, 10));
@@ -102,7 +119,8 @@ public class FundamentosApplication implements CommandLineRunner {
         List<User> users = Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12);
 
         // Save each user of list
-        users.stream().forEach( userRepository::save );
+        users.stream().forEach(userRepository::save);
+
     }
 
     private void _previousTest() {
