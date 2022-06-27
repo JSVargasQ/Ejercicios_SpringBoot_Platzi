@@ -99,28 +99,48 @@ public class FundamentosApplication implements CommandLineRunner {
                 .stream()
                 .forEach(user -> LOGGER.info("Usuario con método findAndSort " + user));
 
-        // Execute threed QUERY
+        // Execute three QUERY
         userRepository.findByName("Juan")
                 .stream()
                 .forEach(user -> LOGGER.info("Usuario con query method " + user.toString()));
 
-        // Execute fiur QUERY
+        // Execute four QUERY
         LOGGER.info("Usuario con query method findByEmailAndName " +userRepository.findByEmailAndName("correo8@hotmail.com", "User8")
                 .orElseThrow( () -> new RuntimeException("Usuario no encontrado (findByEmailAndName)") ));
+
+        // Execute five QUERY
+        userRepository.findByNameLike("%Us%")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con findByNameLike " + user.toString()));
+
+        // Execute six QUERY
+        userRepository.findByNameOrEmail("Sebastian", "correo12@hotmail.com")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con findByNameOrEmail " + user.toString()));
+
+        // Execute seven QUERY
+        userRepository.findByBirthDateBetween(LocalDate.of(2001, 3, 10), LocalDate.of(2010, 12, 31))
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con findByBirthDateBetween " + user.toString()));
+
+        // Execute eight QUERY
+        userRepository.findByNameContainingOrderByIdDesc("Use")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con findByNameContainingOrderByIdDesc " + user.toString()));
     }
 
     private void _saveUsersInDataBase() {
         User user1 = new User("Sebastian", "jsvargasq@hotmail.com", LocalDate.of(2001, 3, 10));
-        User user2 = new User("Juan", "jsvargasq@unbosque.edu.co", LocalDate.of(2021, 6, 22));
-        User user3 = new User("User3", "correo3@hotmail.com", LocalDate.of(2021, 3, 23));
-        User user4 = new User("User4", "correo4@hotmail.com", LocalDate.of(2021, 4, 24));
-        User user5 = new User("User5", "correo5@hotmail.com", LocalDate.of(2021, 5, 25));
+        User user2 = new User("Juan", "jsvargasq@unbosque.edu.co", LocalDate.of(2006, 6, 22));
+        User user3 = new User("User3", "correo3@hotmail.com", LocalDate.of(2003, 3, 23));
+        User user4 = new User("User4", "correo4@hotmail.com", LocalDate.of(2005, 4, 24));
+        User user5 = new User("User5", "correo5@hotmail.com", LocalDate.of(2005, 5, 25));
         User user6 = new User("User6", "correo6@hotmail.com", LocalDate.of(2021, 6, 26));
-        User user7 = new User("User7", "correo7@hotmail.com", LocalDate.of(2021, 7, 27));
-        User user8 = new User("User8", "correo8@hotmail.com", LocalDate.of(2021, 8, 28));
-        User user9 = new User("User9", "correo9@hotmail.com", LocalDate.of(2021, 9, 29));
-        User user10 = new User("User10", "correo10@hotmail.com", LocalDate.of(2021, 10, 10));
-        User user11 = new User("User11", "correo11@hotmail.com", LocalDate.of(2021, 11, 11));
+        User user7 = new User("User7", "correo7@hotmail.com", LocalDate.of(2017, 7, 27));
+        User user8 = new User("User8", "correo8@hotmail.com", LocalDate.of(2012, 8, 28));
+        User user9 = new User("User9", "correo9@hotmail.com", LocalDate.of(2009, 9, 29));
+        User user10 = new User("User10", "correo10@hotmail.com", LocalDate.of(2013, 10, 10));
+        User user11 = new User("User11", "correo11@hotmail.com", LocalDate.of(2017, 11, 11));
         User user12 = new User("User12", "correo12@hotmail.com", LocalDate.of(2021, 12, 12));
 
         // Create array with all users
