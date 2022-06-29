@@ -105,8 +105,8 @@ public class FundamentosApplication implements CommandLineRunner {
                 .forEach(user -> LOGGER.info("Usuario con query method " + user.toString()));
 
         // Execute four QUERY
-        LOGGER.info("Usuario con query method findByEmailAndName " +userRepository.findByEmailAndName("correo8@hotmail.com", "User8")
-                .orElseThrow( () -> new RuntimeException("Usuario no encontrado (findByEmailAndName)") ));
+        LOGGER.info("Usuario con query method findByEmailAndName " + userRepository.findByEmailAndName("correo8@hotmail.com", "User8")
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado (findByEmailAndName)")));
 
         // Execute five QUERY
         userRepository.findByNameLike("%Us%")
@@ -127,6 +127,13 @@ public class FundamentosApplication implements CommandLineRunner {
         userRepository.findByNameContainingOrderByIdDesc("Use")
                 .stream()
                 .forEach(user -> LOGGER.info("Usuario con findByNameContainingOrderByIdDesc " + user.toString()));
+
+        // USE JPQL
+
+        LOGGER.info( "El usuario a partir de getAllByBirthDateAndEmail: " +
+                userRepository.getAllByBirthDateAndEmail(LocalDate.of(2006, 6, 22), "jsvargasq@unbosque.edu.co")
+                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario a partir de getAllByBirthDateAndEmail"))
+        );
     }
 
     private void _saveUsersInDataBase() {
