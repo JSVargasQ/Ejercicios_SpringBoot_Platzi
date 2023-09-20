@@ -30,6 +30,7 @@ public class FundamentosApplication implements CommandLineRunner {
     private Log LOGGER = LogFactory.getLog(FundamentosApplication.class);
 
     private ComponentDependency componentDependency;
+    
     private MyBean myBean;
     private MyBeanWithDependency myBeanWithDependency;
     private MyBeanWithProperties myBeanWithProperties;
